@@ -10,12 +10,13 @@ data class Cart(
 
         list.add("商品名,単価,数量,合計")
 
-        items.forEach {
+        items
+                .forEach {
             list.add("${it.product.productName.value},${it.product.unitPrice.value},${it.quantity.value},${it.小計.value}")
         }
 
 
-        list.add("小計: ${小計}円")
+        list.add("小計: ${小計.value}円")
 
         return list.joinToString("\n")
     }

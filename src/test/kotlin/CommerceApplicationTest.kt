@@ -1,4 +1,3 @@
-import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -45,7 +44,7 @@ class CommerceApplicationTest {
 //        商品名,単価,数量,合計
 //        いちご,150,3,450
 //        みかん,200,1,200
-//        なす,300,1,250
+//        なす,300,1,300
 //        小計: 900円
 
         //        いちご,150,001
@@ -64,11 +63,10 @@ class CommerceApplicationTest {
         //　カート項目の一覧を返す
         assertThat(app.showCartItems())
                 .isEqualTo("""商品名,単価,数量,合計
-                いちご,150,3,450
-                みかん,200,1,200
-                なす,300,1,250
-                小計: 900円
-                """.trimIndent())
+いちご,150,3,450
+みかん,250,1,250
+なす,300,1,300
+小計: 1000円""".trimIndent())
     }
 
     @Test

@@ -1,9 +1,17 @@
+import action.ShowCartItems
 import action.impl.AddToCartImpl
+import action.impl.ShowCartItemsImpl
+import repository.CartRepository
+import repository.CartRepositoryImpl
 import repository.ProductRepositoryImpl
 
 object CommerceApplication {
 
-    private val addToCart = AddToCartImpl(ProductRepositoryImpl())
+    private val cartRepository: CartRepository = CartRepositoryImpl()
+
+    private val addToCart = AddToCartImpl(ProductRepositoryImpl(), cartRepository)
+
+    private val showCartItems: ShowCartItems = ShowCartItemsImpl(cartRepository)
 
     /**
      * カートに商品を追加する
@@ -17,7 +25,7 @@ object CommerceApplication {
      * カート項目の一覧を表示する
      */
     fun showCartItems() : String {
-        TODO("not implemented")
+        return showCartItems.execute(Unit)
     }
 
     /**

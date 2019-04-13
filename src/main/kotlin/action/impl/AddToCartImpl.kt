@@ -4,25 +4,28 @@ import action.AddToCart
 import domainservice.CartDomainService
 import model.cart.Cart
 import model.cart.Quantity
+import repository.CartRepository
 import repository.ProductRepository
 
-class AddToCartImpl(private val repo : ProductRepository) : AddToCart {
-
-    var cart = Cart(emptyList())
+class AddToCartImpl(private val repo: ProductRepository, private val cartRepository: CartRepository) : AddToCart {
 
     private val service = CartDomainService()
 
     override fun execute(input: List<String>): Boolean {
-        val products = input.map { repo.find(it) }
+        val products = input
+                .map { repo.find(it) }
 
         return if (products.any { it == null }) {
             false
         } else {
             products
                     .filterNotNull()
-                    .forEach {product ->
-                        cart = service.addCartItem(cart, product, Quantity(1))
+                    .groupBy { it }
+                    .forEach { entry ->
+                        cartRepository.cart = service.addCartItem(cartRepository.cart, entry.key, Quantity(entry.value.size))
                     }
+
+            cartRepository.cart = Cart(cartRepository.cart.items.asReversed())
 
             true
         }
