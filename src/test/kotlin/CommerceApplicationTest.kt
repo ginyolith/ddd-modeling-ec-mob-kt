@@ -1,13 +1,11 @@
+import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 
 class CommerceApplicationTest {
 
-    val app = CommerceApplication
+    private val app = CommerceApplication
 
     @Before
     fun setUp() {
