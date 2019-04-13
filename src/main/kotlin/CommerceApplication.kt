@@ -1,11 +1,16 @@
+import action.impl.AddToCartImpl
+import repository.ProductRepositoryImpl
+
 object CommerceApplication {
+
+    private val addToCart = AddToCartImpl(ProductRepositoryImpl())
 
     /**
      * カートに商品を追加する
      * @param productCode 商品コード
      */
     fun addToCart(vararg productCode : String) : Boolean{
-        TODO("not implemented")
+        return addToCart.execute(productCode.toList())
     }
 
     /**

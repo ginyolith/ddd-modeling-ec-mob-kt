@@ -1,5 +1,3 @@
 package action
 
-interface AddToCart : UseCase<List<String>, Boolean>{
-
-}
+interface AddToCart : UseCase<List<String>, Boolean>
