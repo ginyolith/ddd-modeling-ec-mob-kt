@@ -42,3 +42,10 @@ N
 ## ユビキタス言語
 - item = 項目
 - product = 商品
+
+
+
+## 現在のUML図
+
+![image](https://user-images.githubusercontent.com/33717710/57178601-080dd580-6eae-11e9-8817-51821fd0fc37.png)
+
