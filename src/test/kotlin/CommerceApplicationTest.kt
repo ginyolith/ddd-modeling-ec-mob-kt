@@ -89,23 +89,23 @@ class CommerceApplicationTest {
         // TODO なぜここでカート項目の一覧を呼んでいる？
         assertThat(app.showCartItems())
                 .isEqualTo("""商品名,単価,数量,合計
-                いちご,150,3,450
-                みかん,200,1,200
-                なす,300,1,250
-                小計: 900円
-                """.trimIndent())
+いちご,150,3,450
+みかん,250,1,250
+なす,300,1,300
+小計: 1000円""".trimIndent())
 
         // 発注書を返す
         assertThat(app.createPurchaseOrderSheet())
                 .isEqualTo("""発注書ID:001
-                品目,単価,数量,合計
-                いちご,150,3,450
-                みかん,200,1,200
-                なす,300,1,250
-                小計: 900円
-                """.trimIndent())
+品目,単価,数量,合計
+いちご,150,3,450
+みかん,250,1,250
+なす,300,1,300
+小計: 1000円""".trimIndent())
 
         // カートの中身が空になってる
-        assertThat(app.showCartItems()).isEmpty()
+        assertThat(app.showCartItems())
+                .isEqualTo("""商品名,単価,数量,合計
+小計: 0円""")
     }
 }

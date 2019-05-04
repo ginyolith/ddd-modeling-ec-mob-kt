@@ -5,7 +5,7 @@ data class PurchaseOrder(
         val items: List<OrderItem>
 ) {
     // FIXME IntはMoney型などVO化する必要がある？
-    val orderItemAmout: Int = TODO()
+    val orderItemAmout: Int = items.map { it.totalPrice }.sum()
 
-    val paymentAmout: Int = TODO()
+    val paymentAmout: Int = items.map { it.totalPrice }.sum()
 }

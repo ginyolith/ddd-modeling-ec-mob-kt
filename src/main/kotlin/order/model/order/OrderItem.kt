@@ -9,8 +9,5 @@ data class OrderItem(
         val unitPrice: UnitPrice,
         val quantity: Quantity) {
 
-    fun totalPrice(): Int {
-        TODO()
-    }
-
+    val totalPrice: Int = unitPrice.value * quantity.value
 }

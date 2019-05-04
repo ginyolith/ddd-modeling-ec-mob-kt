@@ -1,6 +1,11 @@
+import action.CreatePurchaseOrderSheet
 import action.ShowCartItems
 import action.impl.AddToCartImpl
+import action.impl.CreatePurchaseOrderSheetImpl
 import action.impl.ShowCartItemsImpl
+import anticorrunption.PurchaseOrderAdapter
+import order.repository.PurchaseOrderRepository
+import order.repository.PurchaseOrderRepositoryImpl
 import shopping.repository.CartRepository
 import shopping.repository.CartRepositoryImpl
 import shopping.repository.ProductRepositoryImpl
@@ -9,9 +14,15 @@ object CommerceApplication {
 
     private val cartRepository: CartRepository = CartRepositoryImpl()
 
+    private val purchaseOrderRepository: PurchaseOrderRepository = PurchaseOrderRepositoryImpl()
+
+    private val adapter: PurchaseOrderAdapter = PurchaseOrderAdapter(purchaseOrderRepository)
+
     private val addToCart = AddToCartImpl(ProductRepositoryImpl(), cartRepository)
 
     private val showCartItems: ShowCartItems = ShowCartItemsImpl(cartRepository)
+
+    private val createPurchaseOrderSheet: CreatePurchaseOrderSheet = CreatePurchaseOrderSheetImpl(cartRepository, adapter)
 
     /**
      * カートに商品を追加する
@@ -32,6 +43,6 @@ object CommerceApplication {
      * 発注書を生成する
      */
     fun createPurchaseOrderSheet() : String {
-        TODO("not implemented")
+        return createPurchaseOrderSheet.execute(Unit)
     }
 }
