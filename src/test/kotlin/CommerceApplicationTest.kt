@@ -86,6 +86,7 @@ class CommerceApplicationTest {
         )
 
         //　カート項目の一覧を返す
+        // TODO なぜここでカート項目の一覧を呼んでいる？
         assertThat(app.showCartItems())
                 .isEqualTo("""商品名,単価,数量,合計
                 いちご,150,3,450
