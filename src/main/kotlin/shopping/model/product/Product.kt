@@ -1,4 +1,4 @@
-package model.product
+package shopping.model.product
 
 data class Product(
         val productCode: ProductCode,

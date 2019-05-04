@@ -1,9 +1,9 @@
-package repository
+package shopping.repository
 
-import model.product.Product
-import model.product.ProductCode
-import model.product.ProductName
-import model.product.UnitPrice
+import shopping.model.product.Product
+import shopping.model.product.ProductCode
+import shopping.model.product.ProductName
+import shopping.model.product.UnitPrice
 
 class ProductRepositoryImpl : ProductRepository {
 

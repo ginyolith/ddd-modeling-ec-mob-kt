@@ -1,4 +1,4 @@
-package model.cart
+package shopping.model.cart
 
 data class Quantity(val value: Int) {
     init {

@@ -1,4 +1,4 @@
-package model.cart
+package shopping.model.cart
 
 class 小計(val value: Int) {
 

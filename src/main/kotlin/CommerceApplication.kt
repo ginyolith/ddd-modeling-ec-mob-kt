@@ -1,9 +1,9 @@
 import action.ShowCartItems
 import action.impl.AddToCartImpl
 import action.impl.ShowCartItemsImpl
-import repository.CartRepository
-import repository.CartRepositoryImpl
-import repository.ProductRepositoryImpl
+import shopping.repository.CartRepository
+import shopping.repository.CartRepositoryImpl
+import shopping.repository.ProductRepositoryImpl
 
 object CommerceApplication {
 

@@ -1,6 +1,7 @@
-package model.product
+package shopping.model.product
 
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThatCode
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith

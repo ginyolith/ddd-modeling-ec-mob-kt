@@ -1,6 +1,6 @@
-package repository
+package shopping.repository
 
-import model.product.Product
+import shopping.model.product.Product
 
 interface ProductRepository {
     fun find(productCode:String): Product?

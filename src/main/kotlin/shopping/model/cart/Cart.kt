@@ -1,9 +1,9 @@
-package model.cart
+package shopping.model.cart
 
 data class Cart(
         val items : List<CartItem>
 ) {
-    val 小計 = items.map { it.小計.value }.sum().let { model.cart.小計(it) }
+    val 小計 = items.map { it.小計.value }.sum().let { shopping.model.cart.小計(it) }
 
     fun showCartItems() : String {
         // TODO 別のレイヤー（多分プレゼンテーション層のレイヤー）のオブジェクトに出力処理を委譲する

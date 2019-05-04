@@ -763,14 +763,14 @@
       <module name="ddd-modeling-ec-mob-kt_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="model.product.*" />
+          <option name="PATTERN" value="shopping.model.product.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="model.product" />
-      <option name="MAIN_CLASS_NAME" value="model.product.UnitPriceTest" />
+      <option name="PACKAGE_NAME" value="shopping.model.product" />
+      <option name="MAIN_CLASS_NAME" value="shopping.model.product.UnitPriceTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -786,14 +786,14 @@
       <module name="ddd-modeling-ec-mob-kt_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="model.product.*" />
+          <option name="PATTERN" value="shopping.model.product.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="model.product" />
-      <option name="MAIN_CLASS_NAME" value="model.product.UnitPriceTest" />
+      <option name="PACKAGE_NAME" value="shopping.model.product" />
+      <option name="MAIN_CLASS_NAME" value="shopping.model.product.UnitPriceTest" />
       <option name="METHOD_NAME" value="test単価は0以上の整数であること" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1418,7 +1418,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Gradle: com.android.support:appcompat-v7:25.0.0</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>

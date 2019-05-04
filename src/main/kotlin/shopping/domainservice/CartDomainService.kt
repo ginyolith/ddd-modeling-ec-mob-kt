@@ -1,9 +1,9 @@
-package domainservice
+package shopping.domainservice
 
-import model.cart.Cart
-import model.cart.CartItem
-import model.cart.Quantity
-import model.product.Product
+import shopping.model.cart.Cart
+import shopping.model.cart.CartItem
+import shopping.model.cart.Quantity
+import shopping.model.product.Product
 
 class CartDomainService {
     fun addCartItem(cart : Cart, product: Product, quantity: Quantity) : Cart {

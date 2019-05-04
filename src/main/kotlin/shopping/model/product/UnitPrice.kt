@@ -1,4 +1,4 @@
-package model.product
+package shopping.model.product
 
 /** 単価を表すValueObject */
 data class UnitPrice(val value : Int) {
