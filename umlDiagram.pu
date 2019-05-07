@@ -1,0 +1,183 @@
+@startuml
+
+left to right direction
+
+class "CommerceApplication" {
+    + addToCart(productCode : String) : Boolean
+    + showCartItems() : String
+    + createPurchaseOrderSheet() : String
+}
+
+rectangle "main.kotlin" {
+    package "shopping" {
+        package "model"{
+            class Cart {
+                - items : List<CartItem>
+                - 小計 : 小計
+            }
+            
+            class 小計 {
+                - value : Int
+            }
+            
+            class CartItem {
+                - product : Product
+                - quantity : Quantity
+            }
+            
+            class Quantity {
+                - value : Int
+            }
+            
+            class Product {
+                - productCode: ProductCode
+                - productName: ProductName
+                - unitPrice: UnitPrice
+            }
+            
+            class ProductCode {
+                - value : String 
+            }
+            
+            class ProductName {
+                - value: String
+            }
+            
+            class UnitPrice {
+                - value : Int
+            }
+            
+            CartItem o-- Quantity
+            CartItem o-- Product
+            Product o-- ProductName
+            Product o-- ProductCode
+            Product o-- UnitPrice
+            Cart "1" o-- "*" CartItem
+            Cart o-- 小計
+        }
+        
+        package "domainservice" {
+            class CartDomainService{
+                + addCartItem(cart : Cart, product: Product, quantity: Quantity) : Cart
+            }
+        }
+        
+        package "reposiory" {
+            interface CartRepository {
+                + cart: Cart
+            }
+            
+            class CartRepositoryImpl {
+                + cart: Cart
+            }
+            
+            interface ProductRepository {
+                + find(productCode:String): Product?
+            }
+            
+            class ProductRepositoryImpl {
+                - database : List<Product>
+                + find(productCode: String): Product?
+            }
+            
+            ProductRepository <|.. ProductRepositoryImpl
+            CartRepository <|.. CartRepositoryImpl
+        }
+    }
+
+    package "order"{
+        package "order.model" {
+            class "Quantity" as order_quantity {
+                - value : Int
+            }
+            class "UnitPrice" as order_unitprice {
+                - value : Int
+            }
+            
+        
+            class OrderItem {
+                - name: OrderItemName
+                - unitPrice: UnitPrice
+                - quantity: Quantity
+                + totalPrice: Int
+            }
+            class OrderItemName {
+                - value : String
+            }
+            class PurchaseOrder {
+                - id: PurchaseOrderId
+                - items: List<OrderItem>
+                + orderItemAmout: Int
+                + paymentAmout: Int
+            }
+            class PurchaseOrderId {
+                - value: String
+            }
+            
+ 
+            OrderItem o-- OrderItemName
+            OrderItem o-- order_quantity
+            OrderItem o-- order_unitprice
+            PurchaseOrder o-- PurchaseOrderId
+            PurchaseOrder "1" o-- "*" OrderItem
+        }
+        
+        package "repository" {
+            interface PurchaseOrderRepository {
+                + getNextId() : Int
+            }
+            class PurchaseOrderRepositoryImpl {
+                - _nextId: Int
+                + getNextId(): Int
+            }
+            
+            PurchaseOrderRepository <|.. PurchaseOrderRepositoryImpl
+        }
+    }
+    
+    package "anticorrunption"{
+        class PurchaseOrderAdapter {
+            + execute(cart: Cart): PurchaseOrder
+        }
+    }
+    
+    package "action" {
+        interface AddToCart
+        interface CreatePurchaseOrderSheet
+        interface ShowCartItems
+        
+        interface "UseCase<in INPUT, out OUTPUT>" as use {
+            + execute(input : INPUT) : OUTPUT
+        }
+        class AddToCartImpl {
+            - service : CartDomainService
+            + execute (input: List<String>): Boolean 
+        }
+        class CreatePurchaseOrderSheetImpl {
+            - cartRepository: CartRepository
+            - adapter: PurchaseOrderAdapter
+            + execute(input: Unit): String
+        }
+        
+        class ShowCartItemsImpl {
+            - cartRepository: CartRepository
+            + execute(input: Unit): String
+        }
+        
+        use <|.. AddToCart
+        use <|.. CreatePurchaseOrderSheet
+        use <|.. ShowCartItems
+        
+        AddToCart <|.. AddToCartImpl
+        CartDomainService <.ri. AddToCartImpl
+        CreatePurchaseOrderSheet <|.. CreatePurchaseOrderSheetImpl
+        CartRepository <.. CreatePurchaseOrderSheetImpl
+        PurchaseOrderAdapter <.. CreatePurchaseOrderSheetImpl
+        
+        ShowCartItems <|.. ShowCartItemsImpl
+        CartRepository <.. ShowCartItemsImpl
+        
+    
+    }
+}
+@enduml
