@@ -1,11 +1,7 @@
 apply plugin: 'kotlin'
+apply plugin: 'application'
 
-sourceSets {
-    main.kotlin.srcDirs = main.java.srcDirs = ['src']
-    test.kotlin.srcDirs = test.java.srcDirs = ['test']
-    main.resources.srcDirs = ['resources']
-    test.resources.srcDirs = ['testresources']
-}
+mainClassName = "com.example.MainKt"
 
 repositories {
     mavenLocal()
@@ -24,6 +20,7 @@ dependencies {
     compile "io.ktor:ktor-client-core:$ktor_version"
     compile "io.ktor:ktor-client-core-jvm:$ktor_version"
     compile "io.ktor:ktor-client-apache:$ktor_version"
+    compile "io.ktor:ktor-auth:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     implementation project(":ddd-modeling-ec-mob-kt")
 }
