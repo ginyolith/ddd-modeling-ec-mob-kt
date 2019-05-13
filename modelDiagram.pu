@@ -1,0 +1,143 @@
+@startuml
+
+left to right direction
+
+rectangle "商品購入コンテキスト" {
+   class 商品 {
+       - 単価
+       - 商品名
+       - 商品コード
+   }
+
+   class カート {
+       - カート項目のコレクション
+       + 小計()
+       + カート項目の表示()
+   }
+   class カート項目{
+       - 商品
+       - 数量
+       + 小計()
+   }
+
+   class カートドメインサービス{
+       + カートに商品追加(カート, 商品, 数量):カート
+   }
+
+    class "単価" as 商品単価
+    class "数量" as 商品数量
+    class 商品コード
+    class 商品名
+
+    商品 o.. 商品単価
+    商品 o.. 商品名
+    商品 o.. 商品コード
+    カート項目 o.. 商品数量
+    カート項目 o.. 商品
+
+    カート "1" o.. "*" カート項目
+
+    カートドメインサービス "商品追加したカートを生成する" -left-> カート 
+
+    note bottom of カートドメインサービス
+    現在のカートと、商品と数を貰い、
+    新しいカートを作成する。
+    end note 
+
+    note top of カート
+    カート項目自体は、Immutableとして扱う
+    end note 
+
+    note bottom of 商品単価
+    ルール：正の整数まで
+    end note
+
+    note bottom of 商品数量
+    ルール：1〜99まで
+    end note
+
+    note bottom of 商品コード
+    ルール：3桁
+    end note
+
+    note bottom of 商品名
+    ルール:1文字以上、100文字以内
+    end note
+}
+
+
+rectangle "発注書コンテキスト" {
+    class 発注書 {
+        - 発注書ID
+        - 発注項目のコレクション
+        + 発注項目の合計額()
+        + 支払合計額()
+    }
+
+    class 発注項目 {
+        - 発注項目の名前
+        - 単価
+        - 数量
+        + 合計額()
+    }
+
+    class 発注書ID
+    class 単価
+    class 数量
+
+    note top of 発注書
+    現在は非課税の為、
+    発注項目の合計と、
+    支払合計額はイコールになる。
+    end note 
+
+    note bottom of 数量
+    ルール：1〜99まで
+    end note
+
+    note bottom of 単価
+    ルール：正の整数まで
+    end note
+
+    note right of 発注項目
+    「お客が○○を買う」で
+    意味が通じるかどうかが判断基準になりそう？
+    動詞で考える。
+    end note
+
+    発注書 o.. 発注書ID
+    発注書 "1" o.. "*" 発注項目
+    発注項目 o.. 単価
+    発注項目 o.. 数量
+
+    rectangle "次回考えるかもしれない" {
+        class 割引項目{
+            - 単価
+        }
+
+        class "単価" as 割引単価 {
+        }
+
+        割引項目 o.. 割引単価
+
+        note bottom of 割引単価
+        ルール：負の数も入る？
+        end note
+    }
+}
+
+rectangle "腐敗防止層" {
+    class 発注書アダプター {
+        + execute(カート) : 発注書
+    }
+
+    note right of 発注書アダプター
+    カートの情報を貰い、
+    発注書を生成する
+    end note
+
+    発注書アダプター <.... カート
+    発注書アダプター ....> 発注書
+}
+
+@enduml
