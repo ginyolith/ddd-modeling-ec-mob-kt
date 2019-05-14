@@ -8,8 +8,7 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.9.1'
 
     implementation project(":application")
-    implementation project(":di")
-    implementation project(":domain")
+    implementation project(":infrastructure")
 }
 
 compileKotlin {
