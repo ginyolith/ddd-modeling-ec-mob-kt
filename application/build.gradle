@@ -7,7 +7,6 @@ dependencies {
     testCompile "io.mockk:mockk:1.9"
     testCompile 'org.assertj:assertj-core:3.9.1'
     implementation project(":domain")
-    implementation project(":infrastructure")
 }
 
 compileKotlin {

@@ -1,7 +1,12 @@
 package anticorrunption
 
-import order.model.order.*
-import order.repository.PurchaseOrderRepository
+import order.model.OrderItem
+import order.model.PurchaseOrder
+import order.vo.OrderItemName
+import order.vo.PurchaseOrderId
+import order.vo.Quantity
+import order.vo.UnitPrice
+import repository.PurchaseOrderRepository
 import shopping.cart.model.Cart
 
 internal class PurchaseOrderAdapter(private val repository: PurchaseOrderRepository) {

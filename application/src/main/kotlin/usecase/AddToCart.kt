@@ -1,5 +1,11 @@
 package usecase
 
+import repository.CartRepository
+import repository.ProductRepository
+import shopping.cart.model.Cart
+import shopping.cart.vo.Quantity
+import shopping.domainservice.CartDomainService
+
 interface AddToCart : UseCase<List<String>, Boolean>
 
 internal class AddToCartImpl(private val repo: ProductRepository, private val cartRepository: CartRepository) : AddToCart {

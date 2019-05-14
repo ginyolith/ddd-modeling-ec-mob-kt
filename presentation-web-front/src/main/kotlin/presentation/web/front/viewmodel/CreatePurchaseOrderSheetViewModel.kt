@@ -1,6 +1,6 @@
 package presentation.web.front.viewmodel
 
-import order.model.order.PurchaseOrder
+import order.model.PurchaseOrder
 
 internal class CreatePurchaseOrderSheetViewModel(order : PurchaseOrder) {
     val items : List<String>

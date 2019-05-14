@@ -1,11 +1,5 @@
 package presentation.web.front
 
-import presentation.web.front.view.AddToCartView
-import presentation.web.front.view.CreatePurchaseOrderSheetView
-import presentation.web.front.view.ShowCartItemsView
-import presentation.web.front.viewmodel.AddToCartViewModel
-import presentation.web.front.viewmodel.CreatePurchaseOrderSheetViewModel
-import presentation.web.front.viewmodel.ShowCartItemsViewModel
 import di.Injection
 import io.ktor.application.Application
 import io.ktor.application.ApplicationCall
@@ -20,7 +14,15 @@ import io.ktor.server.engine.connector
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import kotlinx.css.*
-import kotlinx.html.*
+import kotlinx.html.CommonAttributeGroupFacade
+import kotlinx.html.FlowOrMetaDataContent
+import kotlinx.html.style
+import presentation.web.front.view.AddToCartView
+import presentation.web.front.view.CreatePurchaseOrderSheetView
+import presentation.web.front.view.ShowCartItemsView
+import presentation.web.front.viewmodel.AddToCartViewModel
+import presentation.web.front.viewmodel.CreatePurchaseOrderSheetViewModel
+import presentation.web.front.viewmodel.ShowCartItemsViewModel
 
 fun main(args: Array<String>): Unit {
     val env = applicationEngineEnvironment {
