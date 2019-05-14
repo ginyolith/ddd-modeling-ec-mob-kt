@@ -1,11 +1,9 @@
 package presentation.web.front.view
 
-import presentation.web.front.viewmodel.AddToCartViewModel
-import io.ktor.application.ApplicationCall
-import io.ktor.html.respondHtml
 import kotlinx.html.*
+import presentation.web.front.viewmodel.AddToCartViewModel
 
-internal class AddToCartView(private val viewModel : AddToCartViewModel) : View {
+internal class AddToCartView(private val viewModel: AddToCartViewModel) : HtmlView() {
     override fun html(): HTML.() -> Unit = {
         body {
             h1 {

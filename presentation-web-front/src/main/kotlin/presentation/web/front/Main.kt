@@ -2,21 +2,13 @@ package presentation.web.front
 
 import di.Injection
 import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
 import io.ktor.application.call
-import io.ktor.html.respondHtml
-import io.ktor.http.ContentType
-import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import kotlinx.css.*
-import kotlinx.html.CommonAttributeGroupFacade
-import kotlinx.html.FlowOrMetaDataContent
-import kotlinx.html.style
 import presentation.web.front.view.AddToCartView
 import presentation.web.front.view.CreatePurchaseOrderSheetView
 import presentation.web.front.view.ShowCartItemsView
@@ -24,7 +16,7 @@ import presentation.web.front.viewmodel.AddToCartViewModel
 import presentation.web.front.viewmodel.CreatePurchaseOrderSheetViewModel
 import presentation.web.front.viewmodel.ShowCartItemsViewModel
 
-fun main(args: Array<String>): Unit {
+fun main(args: Array<String>) {
     val env = applicationEngineEnvironment {
         module {
             mymodule()
@@ -39,58 +31,36 @@ fun main(args: Array<String>): Unit {
     embeddedServer(Netty, env).start()
 }
 
-fun Application.mymodule(testing: Boolean = false) {
+
+@JvmOverloads
+fun Application.mymodule(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
     routing {
         get("/addToCart") {
-            call.request.queryParameters["items"]
+            val params = call.request.queryParameters["items"]
                     .toString()
                     .split(",")
-                    .let { Injection.addToCart.execute(it) }
-                    .let { AddToCartViewModel(it) }
-                    .let { AddToCartView(it) }
-                    .let { call.respondHtml(block = it.html()) }
+
+            val result = Injection.addToCart.execute(params)
+            val viewModel = AddToCartViewModel(result)
+            val view = AddToCartView(viewModel)
+
+            view.render(call)
         }
 
         get("/showCartItems") {
-            Injection.showCartItems.execute(Unit)
-                    .let { ShowCartItemsViewModel(it) }
-                    .let { ShowCartItemsView(it) }
-                    .let { call.respondHtml(block = it.html()) }
+            val result = Injection.showCartItems.execute(Unit)
+            val viewModel = ShowCartItemsViewModel(result)
+            val view = ShowCartItemsView(viewModel)
+
+            view.render(call)
         }
 
         get("/createPurchaseOrderSheet") {
-            Injection.createPurchaseOrderSheet.execute(Unit)
-                    .let { CreatePurchaseOrderSheetViewModel(it) }
-                    .let { CreatePurchaseOrderSheetView(it) }
-                    .let { call.respondHtml(block = it.html()) }
-        }
+            val result = Injection.createPurchaseOrderSheet.execute(Unit)
+            val viewModel = CreatePurchaseOrderSheetViewModel(result)
+            val view = CreatePurchaseOrderSheetView(viewModel)
 
-        get("/styles.css") {
-            call.respondCss {
-                body {
-                    backgroundColor = Color.red
-                }
-                p {
-                    fontSize = 2.em
-                }
-                rule("p.myclass") {
-                    color = Color.blue
-                }
-            }
+            view.render(call)
         }
     }
-}
-
-fun FlowOrMetaDataContent.styleCss(builder: CSSBuilder.() -> Unit) {
-    style(type = ContentType.Text.CSS.toString()) {
-        +CSSBuilder().apply(builder).toString()
-    }
-}
-
-fun CommonAttributeGroupFacade.style(builder: CSSBuilder.() -> Unit) {
-    this.style = CSSBuilder().apply(builder).toString().trim()
-}
-
-suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
 }

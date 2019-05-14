@@ -1,11 +1,9 @@
 package presentation.web.front.view
 
-import presentation.web.front.viewmodel.CreatePurchaseOrderSheetViewModel
-import io.ktor.application.ApplicationCall
-import io.ktor.html.respondHtml
 import kotlinx.html.*
+import presentation.web.front.viewmodel.CreatePurchaseOrderSheetViewModel
 
-internal class CreatePurchaseOrderSheetView(private val viewModel : CreatePurchaseOrderSheetViewModel) : View {
+internal class CreatePurchaseOrderSheetView(private val viewModel: CreatePurchaseOrderSheetViewModel) : HtmlView() {
     override fun html(): HTML.() -> Unit  = {
         body {
             h1 { +"発注書" }
