@@ -1,5 +1,6 @@
 package order
 
+import order.vo.PurchaseOrderId
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test

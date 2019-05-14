@@ -5,10 +5,12 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
+import shopping.product.vo.UnitPrice
 
 @RunWith(Enclosed::class)
 class UnitPriceTest {
 
+    @Suppress("NonAsciiCharacters")
     @Test
     fun test単価は0以上の整数であること() {
         // 正常系
