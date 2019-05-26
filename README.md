@@ -43,9 +43,12 @@ N
 - item = 項目
 - product = 商品
 
+## 現在のユースケース図
+![image](https://user-images.githubusercontent.com/33717710/58375760-8df4dc00-7f95-11e9-88fd-67dc39eeae66.png)
+
+
 ## 現在のモデル図
 ![image](https://user-images.githubusercontent.com/33717710/57216546-19c8b780-702b-11e9-9e3c-031c82ec3bfd.png)
-
 
 
 ## 現在のクラス図
