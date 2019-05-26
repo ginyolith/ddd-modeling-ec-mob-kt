@@ -1,5 +1,7 @@
 package action
 
-interface CreatePurchaseOrderSheet : UseCase<Unit, String> {
+import order.model.order.PurchaseOrder
+
+interface CreatePurchaseOrderSheet : UseCase<Unit, PurchaseOrder> {
 
 }

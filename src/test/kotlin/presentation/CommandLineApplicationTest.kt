@@ -1,10 +1,12 @@
+package presentation
+
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
-class CommerceApplicationTest {
+class CommandLineApplicationTest {
 
-    private val app = CommerceApplication
+    private val app = CommandLineApplication
 
     @Before
     fun setUp() {
