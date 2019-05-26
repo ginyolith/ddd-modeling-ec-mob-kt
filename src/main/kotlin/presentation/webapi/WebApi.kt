@@ -5,8 +5,10 @@ import di.UseCaseInjection
 import io.ktor.application.call
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.request.header
 import io.ktor.response.respondText
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -49,6 +51,14 @@ fun main(args: Array<String>) {
                 val json = moshi.adapter(JsonCartItems::class.java).toJson(cart)
 
                 call.respondText(json, ContentType.Application.Json, status = HttpStatusCode.OK)
+            }
+            post("/v1/cart/add") {
+                val param = requireNotNull(call.request.header("productCodes"))
+                val productCodes = param.split(",")
+
+                addToCart.execute(productCodes)
+
+                call.respondText("Success", ContentType.Text.Plain, status = HttpStatusCode.OK)
             }
         }
     }
