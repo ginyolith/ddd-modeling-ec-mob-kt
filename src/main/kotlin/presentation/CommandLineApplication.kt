@@ -1,3 +1,5 @@
+package presentation
+
 import action.CreatePurchaseOrderSheet
 import action.ShowCartItems
 import action.impl.AddToCartImpl
@@ -10,7 +12,7 @@ import shopping.repository.CartRepository
 import shopping.repository.CartRepositoryImpl
 import shopping.repository.ProductRepositoryImpl
 
-object CommerceApplication {
+object CommandLineApplication {
 
     private val cartRepository: CartRepository = CartRepositoryImpl()
 
