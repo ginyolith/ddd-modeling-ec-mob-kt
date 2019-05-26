@@ -2,10 +2,10 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testCompile 'junit:junit:4.12'
-    testCompile "io.mockk:mockk:1.9"
-    testCompile 'org.assertj:assertj-core:3.9.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:1.9"
+    testImplementation 'org.assertj:assertj-core:3.9.1'
     implementation project(":domain")
     implementation project(":application")
 }
