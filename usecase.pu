@@ -1,0 +1,22 @@
+@startuml
+
+left to right direction
+
+actor "購入者" as customer
+actor "八百屋" as yaoya
+
+customer --right----> yaoya : 発注書を渡す
+
+rectangle "システム" {
+    usecase "商品にカートを入れる" as addCart 
+    usecase "カート内の商品を閲覧する" as showCart
+    usecase "発注書を出す" as orderSheet
+
+    customer --- addCart
+    customer --- showCart
+    customer --- orderSheet
+
+}
+
+
+@enduml
