@@ -1,12 +1,13 @@
 package presentation.webapi.json
 
-// Todo:JsonCartItemsの名前は再考の余地がある
-data class JsonCartItems(
-        val items: List<JsonCartItem>,
+
+data class JsonOrderSheet(
+        val orderId: Int,
+        val items: List<JsonOrderItem>,
         val subTotal: Int
 )
 
-data class JsonCartItem(
+data class JsonOrderItem(
         val productName: String,
         val unitPrice: Int,
         val quantity: Int,

@@ -9,11 +9,14 @@ import io.ktor.request.header
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
+import io.ktor.routing.put
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import presentation.webapi.json.JsonCartItem
 import presentation.webapi.json.JsonCartItems
+import presentation.webapi.json.JsonOrderItem
+import presentation.webapi.json.JsonOrderSheet
 
 
 fun main(args: Array<String>) {
@@ -60,6 +63,28 @@ fun main(args: Array<String>) {
 
                 call.respondText("Success", ContentType.Text.Plain, status = HttpStatusCode.OK)
             }
+            put("/v1/order/create") {
+                val order = createPurchaseOrderSheet.execute(Unit)
+                // 発注書ドメインモデル -> 発注書Jsonオブジェクトへの変換
+                val orderJson: JsonOrderSheet = JsonOrderSheet(
+                        orderId = order.id.value,
+                        items = order.items.map {
+                            JsonOrderItem(
+                                    productName = it.name.value,
+                                    unitPrice = it.unitPrice.value,
+                                    quantity = it.quantity.value,
+                                    totalPrice = it.totalPrice
+                            )
+                        },
+                        subTotal = order.paymentAmout
+                )
+
+                val moshi = Moshi.Builder().build()
+                val json = moshi.adapter(JsonOrderSheet::class.java).toJson(orderJson)
+
+                call.respondText(json, ContentType.Application.Json, status = HttpStatusCode.OK)
+            }
+
         }
     }
     server.start(wait = true)
