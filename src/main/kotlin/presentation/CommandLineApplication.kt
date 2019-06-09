@@ -6,6 +6,7 @@ import action.impl.AddToCartImpl
 import action.impl.CreatePurchaseOrderSheetImpl
 import action.impl.ShowCartItemsImpl
 import anticorrunption.PurchaseOrderAdapter
+import di.UseCaseInjection
 import order.repository.PurchaseOrderRepository
 import order.repository.PurchaseOrderRepositoryImpl
 import shopping.repository.CartRepository
@@ -26,18 +27,22 @@ object CommandLineApplication {
 
     private val createPurchaseOrderSheet: CreatePurchaseOrderSheet = CreatePurchaseOrderSheetImpl(cartRepository, adapter)
 
+    private val authenticate = UseCaseInjection.authentication
+
     /**
      * カートに商品を追加する
      * @param productCode 商品コード
      */
-    fun addToCart(vararg productCode : String) : Boolean{
-        return addToCart.execute(productCode.toList())
+    fun addToCart(auth :String, productCodeList : List<String>) : Boolean{
+        val authentication = authenticate.execute(auth)
+
+        return addToCart.execute(productCodeList)
     }
 
     /**
      * カート項目の一覧を表示する
      */
-    fun showCartItems() : String {
+    fun showCartItems(auth :String) : String {
         val cart = showCartItems.execute(Unit)
 
         val list = mutableListOf<String>()
